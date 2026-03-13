@@ -57,7 +57,7 @@ jobs:
         run: mvn package -DskipTests --batch-mode
 
       - name: Upload JAR artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jira-panel-plugin-jar
           path: target/*.jar
