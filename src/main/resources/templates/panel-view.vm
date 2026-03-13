@@ -1,0 +1,84 @@
+## Custom Issue Panel - Velocity Template
+## Rendered on the issue view page (right context)
+
+<div id="gadzhiev-custom-panel" class="gadzhiev-panel">
+
+    <h3 class="gadzhiev-panel__title">
+        <span class="aui-icon aui-icon-small aui-iconfont-info"></span>
+        Custom Info Panel
+    </h3>
+
+    #if ($error)
+        <div class="aui-message aui-message-error">
+            <p>$error</p>
+        </div>
+    #else
+
+    ## View Mode
+    <div id="gadzhiev-panel-view">
+        <div class="gadzhiev-panel__field">
+            <label class="gadzhiev-panel__label">Custom Text:</label>
+            <span id="gadzhiev-view-customText" class="gadzhiev-panel__value">
+                #if ($customText && $customText != "")$customText#else<em>Not set</em>#end
+            </span>
+        </div>
+
+        <div class="gadzhiev-panel__field">
+            <label class="gadzhiev-panel__label">Notes:</label>
+            <span id="gadzhiev-view-customNote" class="gadzhiev-panel__value">
+                #if ($customNote && $customNote != "")$customNote#else<em>Not set</em>#end
+            </span>
+        </div>
+
+        #if ($updatedBy && $updatedBy != "")
+        <div class="gadzhiev-panel__meta">
+            Last updated by <strong>$updatedBy</strong>
+        </div>
+        #end
+
+        <div class="gadzhiev-panel__actions">
+            <button id="gadzhiev-edit-btn" class="aui-button aui-button-subtle">
+                <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                Edit
+            </button>
+        </div>
+    </div>
+
+    ## Edit Mode (hidden by default)
+    <div id="gadzhiev-panel-edit" style="display:none;">
+        <div class="gadzhiev-panel__field">
+            <label class="gadzhiev-panel__label" for="gadzhiev-input-customText">Custom Text:</label>
+            <input id="gadzhiev-input-customText"
+                   class="text gadzhiev-panel__input"
+                   type="text"
+                   value="$!{customText}"
+                   placeholder="Enter custom text..."/>
+        </div>
+
+        <div class="gadzhiev-panel__field">
+            <label class="gadzhiev-panel__label" for="gadzhiev-input-customNote">Notes:</label>
+            <textarea id="gadzhiev-input-customNote"
+                      class="textarea gadzhiev-panel__textarea"
+                      rows="3"
+                      placeholder="Enter notes...">$!{customNote}</textarea>
+        </div>
+
+        <div class="gadzhiev-panel__actions">
+            <button id="gadzhiev-save-btn" class="aui-button aui-button-primary">Save</button>
+            <button id="gadzhiev-cancel-btn" class="aui-button aui-button-subtle">Cancel</button>
+        </div>
+
+        <div id="gadzhiev-panel-status" style="display:none;" class="gadzhiev-panel__status"></div>
+    </div>
+
+    #end
+</div>
+
+## Pass server-side data to JavaScript
+<script type="text/javascript">
+    window.gadzhievPanelConfig = {
+        issueKey: "$issueKey",
+        restBaseUrl: "$restBaseUrl",
+        currentUser: "$currentUser"
+    };
+</script>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atlassian-plugin key="com.Gadzhiev.jira-issue-panel-plugin"
+                  name="Jira Issue Panel Plugin"
+                  plugins-version="2">
+
+    <plugin-info>
+        <description>Custom panel on Jira issue page with read/write functionality</description>
+        <version>1.0.0</version>
+        <vendor name="Gadzhiev" url="https://github.com/Gadzhiev"/>
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+        <param name="atlassian-data-center-compatible">true</param>
+    </plugin-info>
+
+    <!-- Web Panel — отображается на странице задачи -->
+    <web-panel key="issue-custom-panel"
+               name="Custom Info Panel"
+               location="atl.jira.view.issue.right.context"
+               weight="100">
+        <description>Custom panel showing and editing issue data</description>
+        <context-provider class="com.Gadzhiev.jira.panel.IssuePanelContextProvider"/>
+        <resource name="view" type="velocity" location="templates/panel-view.vm"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.IsIssueReportedByCurrentUserCondition"
+                   invert="true"/>
+    </web-panel>
+
+    <!-- REST endpoint для сохранения данных -->
+    <rest key="panel-rest-api"
+          name="Panel REST API"
+          path="/gadzhiev-panel"
+          version="1.0">
+        <description>REST API for custom panel data</description>
+    </rest>
+
+    <!-- Active Objects для хранения данных -->
+    <ao key="ao-module">
+        <description>Active Objects module for storing panel data</description>
+        <entity>com.Gadzhiev.jira.panel.ao.PanelData</entity>
+    </ao>
+
+    <!-- Web Resources (CSS + JS) -->
+    <web-resource key="panel-resources" name="Panel Web Resources">
+        <resource type="download" name="panel.css" location="css/panel.css"/>
+        <resource type="download" name="panel.js" location="js/panel.js"/>
+        <context>jira.view.issue</context>
+    </web-resource>
+
+</atlassian-plugin>
