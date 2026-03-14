@@ -23,42 +23,54 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-<dependencyManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.1</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>atlassian-public</id>
+            <url>https://packages.atlassian.com/maven/repository/public</url>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+    </repositories>
+
     <dependencies>
-        <dependency>
-            <groupId>jta</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-         <repositories>
-    <repository>
-        <id>atlassian-public</id>
-        <url>https://packages.atlassian.com/maven/repository/public</url>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-    </repository>
-    <repository>
-        <id>clojars</id>
-        <url>https://repo.clojars.org/</url>
-    </repository>
-</repositories>
-    <dependencies>
-        <!-- Jira API -->
         <dependency>
             <groupId>com.atlassian.jira</groupId>
             <artifactId>jira-api</artifactId>
             <version>${jira.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>jta</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- Atlassian Plugins API -->
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>3.2.1</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>jta</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>com.atlassian.plugins</groupId>
             <artifactId>atlassian-plugins-osgi-javaconfig</artifactId>
@@ -66,39 +78,27 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Scanner -->
         <dependency>
-            <groupId>com.atlassian.plugin</groupId>
+            <groupId>com.atlassian.plugin</artifactId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Sal API -->
         <dependency>
-            <groupId>com.atlassian.sal</groupId>
+            <groupId>com.atlassian.sal</artifactId>
             <artifactId>sal-api</artifactId>
             <version>4.4.0</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Template renderer -->
         <dependency>
-            <groupId>com.atlassian.templaterenderer</groupId>
+            <groupId>com.atlassian.templaterenderer</artifactId>
             <artifactId>atlassian-template-renderer-api</artifactId>
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Active Objects (хранение данных) -->
-        <dependency>
-            <groupId>com.atlassian.activeobjects</groupId>
-            <artifactId>activeobjects-plugin</artifactId>
-            <version>3.2.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -106,7 +106,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -133,6 +132,7 @@
                         <Import-Package>
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
+                            javax.transaction;version="[1.1,2)";resolution:="optional",
                             *
                         </Import-Package>
                         <Export-Package/>
@@ -169,5 +169,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 </project>
