@@ -26,13 +26,29 @@
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>javax.transaction</groupId>
+            <groupId>jta</groupId>
             <artifactId>jta</artifactId>
-            <version>1.1</version>
+            <version>1.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 </dependencyManagement>
+         <repositories>
+    <repository>
+        <id>atlassian-public</id>
+        <url>https://packages.atlassian.com/maven/repository/public</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+    </repository>
+    <repository>
+        <id>clojars</id>
+        <url>https://repo.clojars.org/</url>
+    </repository>
+</repositories>
     <dependencies>
         <!-- Jira API -->
         <dependency>
