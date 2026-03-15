@@ -78,22 +78,23 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- ИСПРАВЛЕНО: было </artifactId> вместо </groupId> -->
         <dependency>
-            <groupId>com.atlassian.plugin</artifactId>
+            <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.atlassian.sal</artifactId>
+            <groupId>com.atlassian.sal</groupId>
             <artifactId>sal-api</artifactId>
             <version>4.4.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.atlassian.templaterenderer</artifactId>
+            <groupId>com.atlassian.templaterenderer</groupId>
             <artifactId>atlassian-template-renderer-api</artifactId>
             <version>4.0.0</version>
             <scope>provided</scope>
